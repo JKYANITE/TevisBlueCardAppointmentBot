@@ -42,9 +42,9 @@ jobs:
 
       - name: Run checker
         env:
-          TELEGRAM_BOT_TOKEN: "8549951899:AAEljCKjzub4nnpPrB62CdVhbx0YeS_cTOw"
-          TELEGRAM_CHAT_ID: 6090455029
-          MY_CURRENT_APPOINTMENT: "20260401"
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          MY_CURRENT_APPOINTMENT: "20260408"
           BOT_TIMEZONE: "Europe/Berlin"
           HEARTBEAT_HOUR: "9"
         run: |
