@@ -1,0 +1,51 @@
+name: Tevis appointment checker
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"  # every 5 minutes (UTC)
+  workflow_dispatch:
+
+concurrency:
+  group: tevis-appointment-bot
+  cancel-in-progress: true
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Cache state + Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: |
+            state.json
+            ~/.cache/ms-playwright
+          key: tevis-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            tevis-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install Playwright browser (Chromium)
+        run: |
+          python -m playwright install chromium
+
+      - name: Run checker
+        env:
+          TELEGRAM_BOT_TOKEN: "8549951899:AAEljCKjzub4nnpPrB62CdVhbx0YeS_cTOw"
+          TELEGRAM_CHAT_ID: 6090455029
+          MY_CURRENT_APPOINTMENT: "20260401"
+          BOT_TIMEZONE: "Europe/Berlin"
+          HEARTBEAT_HOUR: "9"
+        run: |
+          python bot.py
