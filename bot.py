@@ -8,7 +8,7 @@ from playwright.sync_api import sync_playwright
 
 # --- CONFIGURATION ---
 TARGET_URL = "https://tevis.ekom21.de/fra/select2?md=35"
-MY_CURRENT_APPOINTMENT = int(os.getenv("MY_CURRENT_APPOINTMENT", "20260401"))  # YYYYMMDD
+MY_CURRENT_APPOINTMENT = int(os.getenv("MY_CURRENT_APPOINTMENT", "20260303"))  # YYYYMMDD
 
 BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 DEFAULT_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")  # where daily pings + alerts go
